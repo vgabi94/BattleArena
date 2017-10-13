@@ -9,6 +9,11 @@ public class Health : MonoBehaviour
 
     private float hpValue;
 
+    private void Start()
+    {
+        HP = maxHP;
+    }
+
     public float HP
     {
         get { return hpValue; }
@@ -19,7 +24,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    void ApplyDamage(float damage, GameObject sender)
+    public void ApplyDamage(float damage, GameObject sender)
     {
         HP -= damage;
         BroadcastMessage("HitBy", sender, SendMessageOptions.DontRequireReceiver);
