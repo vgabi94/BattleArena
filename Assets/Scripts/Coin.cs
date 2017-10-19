@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Coin : Item
 {
-    public override void Use()
+    public int coinValue = 1;
+
+    protected virtual void Awake()
     {
-        // TODO
+        TypeOfItem = ItemType.Coin;
+        UseOnPickUp = true;
+    }
+
+    public override void Use(GameObject target)
+    {
+        var inv = target.GetComponent<Inventory>();
+        inv.Gold += coinValue;
+        Destroy(gameObject);
     }
 }

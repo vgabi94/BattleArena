@@ -12,6 +12,8 @@ public class UIFollowTarget : MonoBehaviour
     RectTransform rt;
     Vector3 offset3d;
 
+    Vector3 lastPos;
+
     // Use this for initialization
     void Start()
     {

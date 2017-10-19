@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum WeaponType
 {
@@ -15,6 +13,7 @@ public abstract class Weapon : Item
 
     protected virtual void Awake()
     {
+        TypeOfItem = ItemType.Weapon;
         UseOnPickUp = false;
     }
 }

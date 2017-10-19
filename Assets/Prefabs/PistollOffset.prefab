@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1509616227603128}
+  m_RootGameObject: {fileID: 1919548263787834}
   m_IsPrefabParent: 1
---- !u!1 &1509616227603128
+--- !u!1 &1919548263787834
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4088379473230158}
+  - component: {fileID: 4304806825470210}
   m_Layer: 0
-  m_Name: PistolOffset
+  m_Name: PistollOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4088379473230158
+--- !u!4 &4304806825470210
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1509616227603128}
+  m_GameObject: {fileID: 1919548263787834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0273, y: 0.117400005, z: 0.057}
+  m_LocalPosition: {x: 0.0273, y: 0.11720001, z: 0.057}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}

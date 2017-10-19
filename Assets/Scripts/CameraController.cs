@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public float m_ScreenEdgeBuffer = 4f;           // Space between the top/bottom most target and the screen edge.
     public float m_MinSize = 6.5f;                  // The smallest orthographic size the camera can be.
 
-    float m_Radius = 10f;
+    float m_Radius = 4f;
     private Transform[] m_Targets; // All the targets the camera needs to encompass.
     private Camera m_Camera;                        // Used for referencing the camera.
     private float m_ZoomSpeed;                      // Reference speed for the smooth damping of the orthographic size.
@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
         int numTargets = 0;
 
         // Go through all the targets and add their positions together.
-        for (int i = 1; i < m_Targets.Length; i++)
+        for (int i = 0; i < m_Targets.Length; i++)
         {
             // If the target isn't active, go on to the next one.
             if (!m_Targets[i].gameObject.activeSelf)

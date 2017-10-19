@@ -8,29 +8,45 @@ public class Inventory : MonoBehaviour
     private List<Weapon> weapons;
     private WeaponController wc;
 
+    private int goldAmount;
+    public int Gold
+    {
+        get { return goldAmount; }
+        set
+        {
+            if (value > goldAmount)
+                goldAmount = value;
+        }
+    }
+
     private void Awake()
     {
         wc = GetComponent<WeaponController>();
+        weapons = new List<Weapon>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Item item = other.gameObject.GetComponent<Item>();
-
-        if (item.TypeOfItem == ItemType.Weapon)
+        
+        if (item != null)
         {
-            var wep = (Weapon)item;
-            if (!HasWeaponOfType(wep.TypeOfWeapon))
+            if (item.TypeOfItem == ItemType.Weapon)
             {
-                wc.SwitchWeapon(wep);
-                weapons.Add(wep);
+                var wep = (Weapon)item;
+                if (!HasWeaponOfType(wep.TypeOfWeapon))
+                {
+                    wc.SwitchWeapon(wep);
+                    weapons.Add(wep);
+                    wep.PickUp(gameObject);
+                }
             }
-        }
-        else
-        {
-            if (item.UseOnPickUp)
+            else
             {
-                item.Use();
+                if (item.UseOnPickUp)
+                {
+                    item.Use(gameObject);
+                }
             }
         }
     }

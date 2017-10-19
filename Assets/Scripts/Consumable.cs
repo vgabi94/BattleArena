@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class Consumable : Item
+﻿public abstract class Consumable : Item
 {
     protected virtual void Awake()
     {
+        TypeOfItem = ItemType.Consumable;
         UseOnPickUp = true;
     }
 }
