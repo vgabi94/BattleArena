@@ -21,6 +21,11 @@ public class Health : MonoBehaviour
         {
             hpValue = Mathf.Clamp(value, minHP, maxHP);
             BroadcastMessage("HPChanged", hpValue, SendMessageOptions.DontRequireReceiver);
+
+            if (hpValue == minHP)
+            {
+                BroadcastMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+            }
         }
     }
 

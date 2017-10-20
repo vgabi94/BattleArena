@@ -5,24 +5,23 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 250f;
     public float rotationSpeed = 10f;
+    public float speed = 200f;
 
     Rigidbody rb;
     Animator anim;
-    WeaponController wc;
-    Vector3 forward, right;
+
+    Vector3 gizmoPos;
     readonly float EPS = 0.01f;
+    readonly float rightOffset = 0.5f;
 
 	// Use this for initialization
 	void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        wc = GetComponent<WeaponController>();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour
     {
         float xFact = Input.GetAxis("Horizontal");
         float yFact = Input.GetAxis("Vertical");
-        bool shoot = Input.GetButtonDown("Fire1");
 
         anim.SetBool("walk", false);
         if (Mathf.Abs(xFact) > EPS || Mathf.Abs(yFact) > EPS)
@@ -42,23 +40,22 @@ public class PlayerController : MonoBehaviour
         {
             LookAtCursor();
         }
-
-        if (shoot)
-        {
-            if (wc.MainWeapon != null)
-                wc.MainWeapon.Use(gameObject);
-        }
 	}
 
     private void LookAtCursor()
     {
-        var plane = new Plane(Vector3.up, transform.position);
+        var pos = transform.position + transform.right * rightOffset;
+        var plane = new Plane(Vector3.up, pos);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float hitdist = 0f;
+        float hitdist;
+
         if (plane.Raycast(ray, out hitdist))
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
-            var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+            gizmoPos = targetPoint;
+
+            Vector3 targetVector = targetPoint - pos;
+            var targetRotation = Quaternion.LookRotation(targetVector);
             rb.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                 rotationSpeed * Time.deltaTime);
         }
@@ -80,5 +77,11 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         anim.SetFloat("speedFac", 3f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(gizmoPos, Vector3.up * 100 + gizmoPos);
+        Gizmos.DrawLine(transform.position, gizmoPos);
     }
 }

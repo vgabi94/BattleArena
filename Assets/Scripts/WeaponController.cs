@@ -12,8 +12,16 @@ public class WeaponController : MonoBehaviour
         PistolOffset = transform.Find("PistollOffset");
     }
 
+    private void Update()
+    {
+        if (MainWeapon)
+        {
+            MainWeapon.UpdateWeapon();
+        }
+    }
+
     public void SwitchWeapon(Weapon wep)
     {
-
-    }
+        MainWeapon = wep;
+    }    
 }
