@@ -16,6 +16,8 @@ public class Inventory : MonoBehaviour
         {
             if (value > goldAmount)
                 goldAmount = value;
+
+            EventObserver.Instance.Notify(ObservableEvents.GoldUpdate, gameObject, goldAmount);
         }
     }
 

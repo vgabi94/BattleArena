@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ObservableEvents
 {
-    
+    GoldUpdate
 }
 
 public class EventObserver
@@ -24,9 +24,20 @@ public class EventObserver
     }
 
     public delegate void SenderTarget(GameObject sender, GameObject target);
+    public delegate void SenderMessage(GameObject sender, object message);
+
+    public event SenderMessage GoldUpdateEvent;
 
     public void Notify(ObservableEvents ev, params object[] args)
     {
-        
+        switch (ev)
+        {
+            case ObservableEvents.GoldUpdate:
+                if (GoldUpdateEvent != null)
+                    GoldUpdateEvent((GameObject)args[0], args[1]);
+                break;
+            default:
+                break;
+        }
     }
 }
