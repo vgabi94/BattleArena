@@ -6,10 +6,13 @@ public class Pistol : Weapon
 {
     public float damagePoints = 10f;
 
+    private AudioManager audioManager;
+
     protected override void Awake()
     {
         base.Awake();
         TypeOfWeapon = WeaponType.Pistol;
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     public override void Use(GameObject target)
@@ -17,10 +20,12 @@ public class Pistol : Weapon
         RaycastHit hit;
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        audioManager.PlaySound("Pistol", "Weapon");
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             var hp = hit.collider.GetComponent<Health>();
+            
             if (hp)
             {
                 hp.ApplyDamage(damagePoints, target);
