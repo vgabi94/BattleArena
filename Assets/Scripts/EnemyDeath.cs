@@ -12,7 +12,7 @@ public class EnemyDeath : MonoBehaviour
         if (spawnables != null && spawnables.Length > 0)
         {
             int index = Random.Range(0, spawnables.Length);
-            Instantiate(spawnables[index], transform.position, Quaternion.identity);
+            Instantiate(spawnables[index], transform.position + Vector3.up * 1f, Quaternion.identity);
         }
 
         Destroy(gameObject);

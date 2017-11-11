@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Health : MonoBehaviour
 {
     public float maxHP = 100f;
     public float minHP = 0f;
 
     private float hpValue;
+
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -24,14 +32,20 @@ public class Health : MonoBehaviour
 
             if (hpValue == minHP)
             {
-                BroadcastMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+                anim.SetBool("die", true);
             }
         }
     }
 
-    public void ApplyDamage(float damage, GameObject sender)
+    private void DeathAnimationFinished()
+    {
+        BroadcastMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void ApplyDamage(float damage, Vector3 hitLocation, GameObject sender)
     {
         HP -= damage;
         BroadcastMessage("HitBy", sender, SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("HitLocation", hitLocation, SendMessageOptions.DontRequireReceiver);
     }
 }

@@ -7,12 +7,14 @@ public class Pistol : Weapon
     public float damagePoints = 10f;
 
     private AudioManager audioManager;
+    private ParticleSystem[] ps;
 
     protected override void Awake()
     {
         base.Awake();
         TypeOfWeapon = WeaponType.Pistol;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        ps = GetComponentsInChildren<ParticleSystem>();
     }
 
     public override void Use(GameObject target)
@@ -22,13 +24,18 @@ public class Pistol : Weapon
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         audioManager.PlaySound("Pistol", "Weapon");
 
+        foreach (var item in ps)
+        {
+            item.Play();
+        }
+
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             var hp = hit.collider.GetComponent<Health>();
             
             if (hp)
             {
-                hp.ApplyDamage(damagePoints, target);
+                hp.ApplyDamage(damagePoints, hit.point, target);
             }
         }
     }

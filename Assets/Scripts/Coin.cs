@@ -21,4 +21,12 @@ public class Coin : Item
             Destroy(gameObject);
         }
     }
+
+    protected override void Update()
+    {
+        if (StateOfItem == ItemState.Dropped)
+        {
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        }
+    }
 }

@@ -12,4 +12,12 @@ public class HealthPack : Consumable
         h.HP += HPValue;
         Destroy(gameObject);
     }
+
+    protected override void Update()
+    {
+        if (StateOfItem == ItemState.Dropped)
+        {
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        }
+    }
 }

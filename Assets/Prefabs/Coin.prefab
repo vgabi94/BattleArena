@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4940549655899364}
   - component: {fileID: 33318483136564510}
-  - component: {fileID: 65455502494758228}
   - component: {fileID: 23207552303005374}
   - component: {fileID: 114159861111463496}
+  - component: {fileID: 136079977812794394}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -36,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1861522165006870}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.995259, y: 0.87244684, z: -3.85}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 3.995259, y: 0.82, z: -3.85}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &23207552303005374
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -81,19 +81,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1861522165006870}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65455502494758228
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1861522165006870}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mesh: {fileID: 4300002, guid: aefe84632f21972449cb9b985a21c23e, type: 3}
 --- !u!114 &114159861111463496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,3 +95,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   coinValue: 1
+--- !u!136 &136079977812794394
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861522165006870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 4
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.66106135, z: 0}
