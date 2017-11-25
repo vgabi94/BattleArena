@@ -20,6 +20,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private Dictionary<string, AudioSource> channels;
 
+    [Range(0, 1)]
+    public float SFXvolume = 1f;
+    [Range(0, 1)]
+    public float musicVolume = 1f;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -33,6 +38,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBackgroundMusic()
     {
+        backgroundSource.volume = musicVolume;
         backgroundSource.Play();
     }
 
@@ -42,9 +48,23 @@ public class AudioManager : MonoBehaviour
         {
             if (item.name == name)
             {
+                channels[source].volume = SFXvolume;
                 channels[source].clip = item.audio;
                 channels[source].Play();
             }
+        }
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        backgroundSource.volume = Mathf.Clamp01(volume);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        foreach (var item in channels)
+        {
+            item.Value.volume = Mathf.Clamp01(volume);
         }
     }
 }
