@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-
     public string enemyTag = "Player";
     public float damagePoints = 10f;
+
+    private void Start()
+    {
+        Destroy(gameObject, 5f);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

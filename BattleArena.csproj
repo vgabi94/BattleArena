@@ -135,9 +135,12 @@
     <Compile Include="Assets\Scripts\CloseButton.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\Consumable.cs" />
+    <Compile Include="Assets\Scripts\Consumables\AmmoPistol.cs" />
     <Compile Include="Assets\Scripts\Consumables\HealthPack.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemyDeath.cs" />
     <Compile Include="Assets\Scripts\EventObserver.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\HealthBarController.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />

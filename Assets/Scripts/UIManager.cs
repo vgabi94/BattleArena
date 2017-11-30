@@ -6,18 +6,40 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     Text goldIndicator;
+    Text ammoIndicator;
+    Text killsIndicator;
 
     private void Awake()
     {
         var obj = transform.Find("GoldIndicator");
-        Debug.Assert(obj != null, "GoldIndicator is missing");
         goldIndicator = obj.GetComponent<Text>();
+
+        obj = transform.Find("AmmoIndicator");
+        ammoIndicator = obj.GetComponent<Text>();
+
+        obj = transform.Find("KillsIndicator");
+        killsIndicator = obj.GetComponent<Text>();
     }
 
     private void Start()
     {
         EventObserver.Instance.GoldUpdateEvent += OnGoldUpdate;
-	}
+        EventObserver.Instance.AmmoUpdateEvent += OnAmmoUpdate;
+        EventObserver.Instance.KillsUpdateEvent += OnKillsUpdate;
+    }
+
+    private void OnAmmoUpdate(GameObject sender, object message)
+    {
+        int ammo, rounds;
+        Pistol.UnpackAmmo((int)message, out ammo, out rounds);
+
+        ammoIndicator.text = "Ammo    " + ammo + "/" + rounds;
+    }
+
+    private void OnKillsUpdate(GameObject sender, object message)
+    {
+        goldIndicator.text = "Kills    " + ((int)message).ToString();
+    }
 
     private void OnGoldUpdate(GameObject sender, object message)
     {
@@ -27,5 +49,7 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         EventObserver.Instance.GoldUpdateEvent -= OnGoldUpdate;
+        EventObserver.Instance.AmmoUpdateEvent -= OnAmmoUpdate;
+        EventObserver.Instance.KillsUpdateEvent -= OnKillsUpdate;
     }
 }

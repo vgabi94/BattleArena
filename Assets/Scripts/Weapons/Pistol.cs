@@ -5,9 +5,13 @@ using UnityEngine;
 public class Pistol : Weapon
 {
     public float damagePoints = 10f;
+    public int MaxAmmoPerRound = 45;
+    public int MaxRounds = 60;
 
     private AudioManager audioManager;
     private ParticleSystem[] ps;
+    private int ammo;
+    private int rounds;
 
     protected override void Awake()
     {
@@ -15,14 +19,30 @@ public class Pistol : Weapon
         TypeOfWeapon = WeaponType.Pistol;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         ps = GetComponentsInChildren<ParticleSystem>();
+        ammo = MaxAmmoPerRound;
+        rounds = MaxRounds;
     }
 
     public override void Use(GameObject target)
     {
+        if (ammo == 0 && rounds == 0)
+        {
+            audioManager.PlaySound("NoAmmo", "Weapon");
+            return;
+        }
+
         RaycastHit hit;
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         audioManager.PlaySound("Pistol", "Weapon");
+
+        ammo -= 1;
+        if (ammo == 0 && rounds > 0)
+        {
+            ammo = MaxAmmoPerRound;
+            rounds -= 1;
+        }
+        EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, PackAmmo(ammo, rounds));
 
         foreach (var item in ps)
         {
@@ -59,10 +79,35 @@ public class Pistol : Weapon
 
         var anim = target.GetComponent<Animator>();
         anim.SetInteger("weapon", (int)TypeOfWeapon);
+        EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, PackAmmo(ammo, rounds));
     }
 
-    private void OnDrawGizmos()
+    public void SetAmmo(int packed)
     {
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 100);
+        int am, ro;
+        UnpackAmmo(packed, out am, out ro);
+        ammo = MaxAmmoPerRound = am;
+        rounds = MaxRounds = ro;
+        EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, packed);
+    }
+
+    /// <summary>
+    /// Helper method for packing two shorts into an int
+    /// </summary>
+    public static int PackAmmo(int ammo, int rounds)
+    {
+        int ammoMask = 0x0000FFFF;
+        ammo = ammoMask & ammo;
+        rounds = ammoMask & rounds;
+        rounds = (rounds << 16);
+        int packed = ammo | rounds;
+        return packed;
+    }
+
+    public static void UnpackAmmo(int packed, out int ammo, out int rounds)
+    {
+        int ammoMask = 0x0000FFFF;
+        ammo = packed & ammoMask;
+        rounds = (packed >> 16) & ammoMask;
     }
 }

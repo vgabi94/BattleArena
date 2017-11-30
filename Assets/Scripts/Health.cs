@@ -11,10 +11,12 @@ public class Health : MonoBehaviour
     private float hpValue;
 
     private Animator anim;
+    private UnityEngine.AI.NavMeshAgent agent;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     private void Start()
@@ -32,6 +34,11 @@ public class Health : MonoBehaviour
 
             if (hpValue == minHP)
             {
+                if (agent != null)
+                {
+                    agent.isStopped = true;
+                    agent.enabled = false;
+                }
                 anim.SetBool("die", true);
             }
         }

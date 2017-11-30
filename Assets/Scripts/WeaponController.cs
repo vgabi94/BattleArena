@@ -23,5 +23,15 @@ public class WeaponController : MonoBehaviour
     public void SwitchWeapon(Weapon wep)
     {
         MainWeapon = wep;
-    }    
+    }
+    
+    public void UpdateAmmo(int packed)
+    {
+        if (MainWeapon != null)
+        {
+            // We know that we have only one weapon type
+            Pistol p = (Pistol)MainWeapon;
+            p.SetAmmo(packed);
+        }
+    }
 }

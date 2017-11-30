@@ -58,10 +58,12 @@ public class AudioManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         backgroundSource.volume = Mathf.Clamp01(volume);
+        musicVolume = volume;
     }
 
     public void SetSFXVolume(float volume)
     {
+        SFXvolume = volume;
         foreach (var item in channels)
         {
             item.Value.volume = Mathf.Clamp01(volume);

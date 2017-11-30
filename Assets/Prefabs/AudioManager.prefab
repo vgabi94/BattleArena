@@ -245,5 +245,9 @@ MonoBehaviour:
   sounds:
   - audio: {fileID: 8300000, guid: ed9c9a6ce3315b343900a80188319668, type: 3}
     name: Pistol
-  SFXvolume: 0
-  musicVolume: 0
+  - audio: {fileID: 8300000, guid: a437e553f0c2f4b4aae4084f778deff4, type: 3}
+    name: NoAmmo
+  - audio: {fileID: 8300000, guid: a3dc5ef9292591044957b139796877bd, type: 3}
+    name: Reloading
+  SFXvolume: 0.23
+  musicVolume: 0.393
