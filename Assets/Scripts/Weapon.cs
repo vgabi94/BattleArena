@@ -25,4 +25,8 @@ public class Weapon : Item
     }
 
     public virtual void UpdateWeapon() { }
+
+    public virtual int GetAmmo() { return 0; }
+
+    public virtual void SetAmmo(int packed) { }
 }

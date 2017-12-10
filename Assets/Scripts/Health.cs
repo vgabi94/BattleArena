@@ -36,7 +36,8 @@ public class Health : MonoBehaviour
             {
                 if (agent != null)
                 {
-                    agent.isStopped = true;
+                    if (agent.isActiveAndEnabled)
+                        agent.isStopped = true;
                     agent.enabled = false;
                 }
                 anim.SetBool("die", true);

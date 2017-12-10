@@ -82,7 +82,7 @@ public class Pistol : Weapon
         EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, PackAmmo(ammo, rounds));
     }
 
-    public void SetAmmo(int packed)
+    public override void SetAmmo(int packed)
     {
         int am, ro;
         UnpackAmmo(packed, out am, out ro);
@@ -109,5 +109,10 @@ public class Pistol : Weapon
         int ammoMask = 0x0000FFFF;
         ammo = packed & ammoMask;
         rounds = (packed >> 16) & ammoMask;
+    }
+
+    public override int GetAmmo()
+    {
+        return PackAmmo(ammo, rounds);
     }
 }

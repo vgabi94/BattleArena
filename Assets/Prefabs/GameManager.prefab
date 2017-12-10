@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1986313784262912}
+  m_IsPrefabParent: 1
+--- !u!1 &1986313784262912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4594873348866344}
+  - component: {fileID: 114979815538892490}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4594873348866344
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986313784262912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114979815538892490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986313784262912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08088e07fc867748b28627062468fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabByType:
+  - type: Pistol
+    prefab: {fileID: 1729148800435604, guid: 1a9985582fb82ff4298dab8e9d6d02d9, type: 2}
+  - type: Coin
+    prefab: {fileID: 1861522165006870, guid: a0c86e48710e1964bba7d5619b2c1ff0, type: 2}
+  - type: HealthPack
+    prefab: {fileID: 1249926930450070, guid: f8678069946b16a439daf6562e8e70cc, type: 2}
+  - type: Ammo
+    prefab: {fileID: 1408947702164354, guid: 708d0340107ed7649a11b5d745dcb3ee, type: 2}
+  - type: Enemy
+    prefab: {fileID: 1627430914478690, guid: 106ca55be8fbe8f489f36c15a7642b15, type: 2}
+  - type: Player
+    prefab: {fileID: 1802811142224064, guid: bdec8217af79b3649aa8cfa5b27d9eba, type: 2}

@@ -18,15 +18,21 @@ public class PauseMenuBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (pauseMenu.activeSelf && !audioSettings.activeSelf)
-                pauseMenu.SetActive(false);
+            {
+                ResumeButton();
+            }
             else if (!pauseMenu.activeSelf)
+            {
                 pauseMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
     }
 
     public void ResumeButton()
     {
         pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void AudioButton()
@@ -36,7 +42,7 @@ public class PauseMenuBehavior : MonoBehaviour
 
     public void SaveButton()
     {
-
+        GameManager.SaveGame();
     }
 
     public void QuitButton()

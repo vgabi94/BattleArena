@@ -21,12 +21,12 @@ public class UIFollowTarget : MonoBehaviour
         Debug.Assert(target != null, "This component must have at least two parents");
         rt = GetComponent<RectTransform>();
         offset3d = new Vector3(offset.x, offset.y, 0f);
-	}
-	
-	// Update is called once per frame
-	void Update()
+    }
+    
+    // Update is called once per frame
+    void Update()
     {
         var pos = Camera.main.WorldToScreenPoint(target.transform.position + offset3d);
         rt.position = pos;
-	}
+    }
 }
