@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
 
         if (!System.IO.Directory.Exists(dirPath))
             System.IO.Directory.CreateDirectory(dirPath);
-        
-        string saveFilePath = dirPath + "/" + "savefile_" + 
+
+        string saveFilePath = dirPath + "/" + "savefile_" +
             DateTime.Now.ToOADate() + ".save";
 
         using (var conn = new SQLite.SQLiteConnection(saveFilePath))
@@ -154,8 +154,14 @@ public class GameManager : MonoBehaviour
                     conn.Insert(et);
                 }
 
-                if (type != "")
+                if (type != "" && type != "Player" && type != "Enemy")
                 {
+                    if (type == "Pistol")
+                    {
+                        if (item.GetComponent<Pistol>().StateOfItem == ItemState.Picked)
+                            continue;
+                    }
+
                     Transform t = item.GetComponent<Transform>();
                     ObjectTable ot = new ObjectTable();
                     ot.Type = type;
@@ -205,6 +211,7 @@ public class GameManager : MonoBehaviour
             var sceneQuery = conn.Table<SceneTable>();
             instance.loadSavedGame = true;
             instance.savedGamePath = path;
+            //string name = sceneQuery.First().Name + "Empty";
             LoadLevel(sceneQuery.First().Id);
         }
     }
@@ -287,6 +294,11 @@ public class GameManager : MonoBehaviour
         instance.StartCoroutine(instance._LoadLevel(index));
     }
 
+    public static void LoadLevel(string name)
+    {
+        instance.StartCoroutine(instance._LoadLevel(name));
+    }
+
     IEnumerator _LoadLevel(int index)
     {
         LoadingScreen.Show();
@@ -300,7 +312,29 @@ public class GameManager : MonoBehaviour
                 async.allowSceneActivation = true;
 
                 if (loadSavedGame)
-                    StartCoroutine(BeginLoadingTheRestOfTheGame());
+                    yield return StartCoroutine(BeginLoadingTheRestOfTheGame());
+                else
+                    LoadingScreen.Hide();
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator _LoadLevel(string name)
+    {
+        LoadingScreen.Show();
+        async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(name);
+        async.allowSceneActivation = false;
+
+        while (!async.isDone)
+        {
+            if (async.progress == 0.9f)
+            {
+                async.allowSceneActivation = true;
+
+                if (loadSavedGame)
+                    yield return StartCoroutine(BeginLoadingTheRestOfTheGame());
                 else
                     LoadingScreen.Hide();
             }
@@ -311,7 +345,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BeginLoadingTheRestOfTheGame()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         LoadRestOfTheGame(savedGamePath);
         loadSavedGame = false;
         LoadingScreen.Hide();

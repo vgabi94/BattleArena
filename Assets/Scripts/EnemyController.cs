@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     Vector3 targetDestination;
     GameObject targetObj;
     Transform daggerTransform;
-    MeshRenderer mrDagger;
+    GameObject daggerObject;
 
     bool waitFlag = true;
     bool waitAttackFlag = true;
@@ -47,8 +47,8 @@ public class EnemyController : MonoBehaviour
             if (item.CompareTag("Offset"))
             {
                 daggerTransform = item.transform;
-                mrDagger = daggerTransform.gameObject.GetComponent<MeshRenderer>();
-                mrDagger.gameObject.SetActive(false);
+                daggerObject = daggerTransform.gameObject;
+                daggerObject.SetActive(false);
                 break;
             }
         }
@@ -167,7 +167,7 @@ public class EnemyController : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        mrDagger.gameObject.SetActive(true);
+        daggerObject.SetActive(true);
     }
 
     public void ThrowProjectile()
@@ -176,7 +176,7 @@ public class EnemyController : MonoBehaviour
         var rb = proj.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 18f + Vector3.up * 4f, ForceMode.VelocityChange);
         rb.AddTorque(daggerTransform.up * 100f, ForceMode.VelocityChange);
-        mrDagger.gameObject.SetActive(false);
+        daggerObject.SetActive(false);
         waitAttackFlag = false;
     }
 
