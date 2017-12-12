@@ -53,7 +53,7 @@ public class MainMenuBehavior : MonoBehaviour
 
     public void QuitButton()
     {
-        Application.Quit();
+        ModalDialog.Show("Are you sure you want to exit?", () => Application.Quit());
     }
 
     private string GetSaveFileGameName(string path)

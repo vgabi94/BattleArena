@@ -12,6 +12,8 @@ public struct AudioPair
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance { get; set; }
+
     [SerializeField]
     private AudioPair[] sounds;
 
@@ -28,6 +30,12 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+
+        if (Instance != null)
+            Destroy(gameObject);
+        if (Instance == null)
+            Instance = gameObject.GetComponent<AudioManager>();
+
         backgroundSource = GetComponent<AudioSource>();
 
         channels = new Dictionary<string, AudioSource>();

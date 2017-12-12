@@ -12,6 +12,9 @@ public class LoadingScreen : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        if (instance != null)
+            Destroy(gameObject);
+
         if (instance == null)
         {
             instance = gameObject;

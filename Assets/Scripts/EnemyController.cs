@@ -138,7 +138,7 @@ public class EnemyController : MonoBehaviour
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 30; i++)
         {
             Vector3 rnd = Random.insideUnitSphere;
             Vector3 randomPoint = center +  rnd * range;

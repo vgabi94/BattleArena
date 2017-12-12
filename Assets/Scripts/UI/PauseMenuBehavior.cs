@@ -47,6 +47,11 @@ public class PauseMenuBehavior : MonoBehaviour
 
     public void QuitButton()
     {
-        Application.Quit();
+        ModalDialog.Show("Exit? Any unsaved progress will be lost!", () => Application.Quit());
+    }
+
+    public void QuitToMenuButton()
+    {
+        ModalDialog.Show("Quit to Main Menu? Any unsaved progress will be lost!", () => { GameManager.LoadLevel("MainMenu"); Time.timeScale = 1f; });
     }
 }

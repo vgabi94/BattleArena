@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     Text ammoIndicator;
     Text killsIndicator;
 
+    GameObject gameOver;
+    GameObject win, lose;
+
     private void Awake()
     {
         var obj = transform.Find("GoldIndicator");
@@ -19,6 +22,10 @@ public class UIManager : MonoBehaviour
 
         obj = transform.Find("KillsIndicator");
         killsIndicator = obj.GetComponent<Text>();
+
+        gameOver = transform.Find("GameOverImage").gameObject;
+        win = gameOver.transform.GetChild(1).gameObject;
+        lose = gameOver.transform.GetChild(0).gameObject;
     }
 
     private void Start()
@@ -26,6 +33,13 @@ public class UIManager : MonoBehaviour
         EventObserver.Instance.GoldUpdateEvent += OnGoldUpdate;
         EventObserver.Instance.AmmoUpdateEvent += OnAmmoUpdate;
         EventObserver.Instance.KillsUpdateEvent += OnKillsUpdate;
+        EventObserver.Instance.PlayerDeadEvent += OnPlayerDead;
+    }
+
+    private void OnPlayerDead(GameObject sender, object message)
+    {
+        gameOver.SetActive(true);
+        lose.SetActive(true);
     }
 
     private void OnAmmoUpdate(GameObject sender, object message)
@@ -38,7 +52,7 @@ public class UIManager : MonoBehaviour
 
     private void OnKillsUpdate(GameObject sender, object message)
     {
-        goldIndicator.text = "Kills    " + ((int)message).ToString();
+        killsIndicator.text = "Kills    " + ((int)message).ToString();
     }
 
     private void OnGoldUpdate(GameObject sender, object message)
@@ -51,5 +65,6 @@ public class UIManager : MonoBehaviour
         EventObserver.Instance.GoldUpdateEvent -= OnGoldUpdate;
         EventObserver.Instance.AmmoUpdateEvent -= OnAmmoUpdate;
         EventObserver.Instance.KillsUpdateEvent -= OnKillsUpdate;
+        EventObserver.Instance.PlayerDeadEvent -= OnPlayerDead;
     }
 }

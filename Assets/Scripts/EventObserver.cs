@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ObservableEvents
 {
-    GoldUpdate, AmmoUpdate, KillsUpdate
+    GoldUpdate, AmmoUpdate, KillsUpdate, PlayerDead
 }
 
 public class EventObserver
@@ -29,22 +29,23 @@ public class EventObserver
     public event SenderMessage GoldUpdateEvent;
     public event SenderMessage AmmoUpdateEvent;
     public event SenderMessage KillsUpdateEvent;
+    public event SenderMessage PlayerDeadEvent;
 
     public void Notify(ObservableEvents ev, params object[] args)
     {
         switch (ev)
         {
             case ObservableEvents.GoldUpdate:
-                if (GoldUpdateEvent != null)
-                    GoldUpdateEvent((GameObject)args[0], args[1]);
+                GoldUpdateEvent?.Invoke((GameObject)args[0], args[1]);
                 break;
             case ObservableEvents.AmmoUpdate:
-                if (AmmoUpdateEvent != null)
-                    AmmoUpdateEvent((GameObject)args[0], args[1]);
+                AmmoUpdateEvent?.Invoke((GameObject)args[0], args[1]);
                 break;
             case ObservableEvents.KillsUpdate:
-                if (KillsUpdateEvent != null)
-                    KillsUpdateEvent((GameObject)args[0], args[1]);
+                KillsUpdateEvent?.Invoke((GameObject)args[0], args[1]);
+                break;
+            case ObservableEvents.PlayerDead:
+                PlayerDeadEvent?.Invoke((GameObject)args[0], args[1]);
                 break;
             default:
                 break;

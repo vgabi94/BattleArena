@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour
     private int playerKills = 0;
     private GameObject mainMenu;
     private AsyncOperation async;
-    private static GameManager instance;
+
+    public static GameManager Instance { get; set; }
 
     private bool loadSavedGame = false;
     private string savedGamePath;
@@ -69,8 +70,23 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         mainMenu = GameObject.Find("MainMenu");
-        if (instance == null)
-            instance = gameObject.GetComponent<GameManager>();
+        if (Instance != null)
+            Destroy(gameObject);
+        if (Instance == null)
+            Instance = gameObject.GetComponent<GameManager>();
+
+        EventObserver.Instance.PlayerDeadEvent += OnPlayerDeadEvent;
+    }
+
+    private void OnPlayerDeadEvent(GameObject sender, object message)
+    {
+        StartCoroutine(GoToMenu(2f));
+    }
+
+    IEnumerator GoToMenu(float timeout)
+    {
+        yield return new WaitForSeconds(timeout);
+        LoadLevel("MainMenu");
     }
 
     public static void SaveGame()
@@ -121,7 +137,7 @@ public class GameManager : MonoBehaviour
                         pt.Weapon = false;
                     }
 
-                    pt.Kills = instance.PlayerKills;
+                    pt.Kills = Instance.PlayerKills;
                     pt.Gold = iv.Gold;
                     pt.Type = type;
                     pt.Hp = hp.HP;
@@ -203,14 +219,14 @@ public class GameManager : MonoBehaviour
 
     public static void LoadSavedGame(string path)
     {
-        if (instance.mainMenu != null)
-            instance.mainMenu.SetActive(false);
+        if (Instance.mainMenu != null)
+            Instance.mainMenu.SetActive(false);
 
         using (var conn = new SQLite.SQLiteConnection(path))
         {
             var sceneQuery = conn.Table<SceneTable>();
-            instance.loadSavedGame = true;
-            instance.savedGamePath = path;
+            Instance.loadSavedGame = true;
+            Instance.savedGamePath = path;
             //string name = sceneQuery.First().Name + "Empty";
             LoadLevel(sceneQuery.First().Id);
         }
@@ -291,12 +307,12 @@ public class GameManager : MonoBehaviour
 
     public static void LoadLevel(int index)
     {
-        instance.StartCoroutine(instance._LoadLevel(index));
+        Instance.StartCoroutine(Instance._LoadLevel(index));
     }
 
     public static void LoadLevel(string name)
     {
-        instance.StartCoroutine(instance._LoadLevel(name));
+        Instance.StartCoroutine(Instance._LoadLevel(name));
     }
 
     IEnumerator _LoadLevel(int index)
