@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         wc = GetComponent<WeaponController>();
         weapons = new List<Weapon>();
     }

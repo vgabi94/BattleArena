@@ -36,7 +36,12 @@ public class MainMenuBehavior : MonoBehaviour
     private void LoadListOfGames()
     {
         listOfGames.SetActive(true);
+#if UNITY_EDITOR
         string path = Application.dataPath + "/SavedGames";
+
+#else
+        string path = System.IO.Directory.GetCurrentDirectory() + "/SavedGames";
+#endif
         string[] files = System.IO.Directory.GetFiles(path);
         foreach (var item in files)
         {

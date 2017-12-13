@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         set
         {
             playerKills = value;
-            EventObserver.Instance.Notify(ObservableEvents.KillsUpdate, gameObject, value);
+            //EventObserver.Instance.Notify(ObservableEvents.KillsUpdate, gameObject, value);
         }
     }
 
@@ -92,7 +92,12 @@ public class GameManager : MonoBehaviour
 
     public static void SaveGame()
     {
+#if UNITY_EDITOR
         string dirPath = Application.dataPath + "/SavedGames";
+
+#else
+        string dirPath = System.IO.Directory.GetCurrentDirectory() + "/SavedGames";
+#endif
 
         if (!System.IO.Directory.Exists(dirPath))
             System.IO.Directory.CreateDirectory(dirPath);
@@ -313,7 +318,7 @@ public class GameManager : MonoBehaviour
 
     public static void LoadLevel(string name)
     {
-        Instance.PlayerKills = 0;
+        Instance.playerKills = 0;
         Instance.StartCoroutine(Instance._LoadLevel(name));
     }
 

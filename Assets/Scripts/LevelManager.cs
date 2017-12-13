@@ -39,4 +39,9 @@ public class LevelManager : MonoBehaviour
         else if (sceneName == "OrcArena")
             GameManager.LoadLevel("MainMenu");
     }
+
+    private void OnDestroy()
+    {
+        EventObserver.Instance.KillsUpdateEvent -= OnKillUpdate;
+    }
 }
