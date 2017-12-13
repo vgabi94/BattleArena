@@ -8,7 +8,6 @@ public class Pistol : Weapon
     public int MaxAmmoPerRound = 45;
     public int MaxRounds = 60;
 
-    private AudioManager audioManager;
     private ParticleSystem[] ps;
     private int ammo;
     private int rounds;
@@ -17,7 +16,6 @@ public class Pistol : Weapon
     {
         base.Awake();
         TypeOfWeapon = WeaponType.Pistol;
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         ps = GetComponentsInChildren<ParticleSystem>();
         ammo = MaxAmmoPerRound;
         rounds = MaxRounds;
@@ -27,14 +25,14 @@ public class Pistol : Weapon
     {
         if (ammo == 0 && rounds == 0)
         {
-            audioManager.PlaySound("NoAmmo", "Weapon");
+            AudioManager.PlaySound("NoAmmo", "SFX");
             return;
         }
 
         RaycastHit hit;
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        audioManager.PlaySound("Pistol", "Weapon");
+        AudioManager.PlaySound("Pistol", "SFX");
 
         ammo -= 1;
         if (ammo == 0 && rounds > 0)
@@ -88,6 +86,16 @@ public class Pistol : Weapon
         UnpackAmmo(packed, out am, out ro);
         ammo = MaxAmmoPerRound = am;
         rounds = MaxRounds = ro;
+        EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, packed);
+    }
+
+    public override void AddAmmo(int packed)
+    {
+        int am, ro;
+        UnpackAmmo(packed, out am, out ro);
+        ammo = MaxAmmoPerRound += am;
+        rounds = MaxRounds += ro;
+        packed = PackAmmo(ammo, rounds);
         EventObserver.Instance.Notify(ObservableEvents.AmmoUpdate, gameObject, packed);
     }
 

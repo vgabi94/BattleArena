@@ -31,7 +31,7 @@ public class WeaponController : MonoBehaviour
         {
             // We know that we have only one weapon type
             Pistol p = (Pistol)MainWeapon;
-            p.SetAmmo(packed);
+            p.AddAmmo(packed);
         }
     }
 }

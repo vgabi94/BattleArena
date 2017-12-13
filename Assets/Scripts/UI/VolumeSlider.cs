@@ -27,6 +27,11 @@ public class VolumeSlider : MonoBehaviour
             labelValue.text = ((int)(am.musicVolume * 100)).ToString();
             slider.value = am.musicVolume;
         }
+        else if (whatSlider == "Voice")
+        {
+            labelValue.text = ((int)(am.voiceVolume * 100)).ToString();
+            slider.value = am.voiceVolume;
+        }
     }
 
     public void OnValueChange()
@@ -34,8 +39,10 @@ public class VolumeSlider : MonoBehaviour
         labelValue.text = ((int)(slider.value * 100)).ToString();
 
         if (whatSlider == "SFX")
-            am.SetSFXVolume(slider.value);
+            AudioManager.SetVolume(slider.value, "SFX");
         else if (whatSlider == "Music")
-            am.SetMusicVolume(slider.value);
+            AudioManager.SetVolume(slider.value, "Music");
+        else if (whatSlider == "Voice")
+            AudioManager.SetVolume(slider.value, "Voice");
     }
 }

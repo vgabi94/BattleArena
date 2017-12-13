@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     GameObject gameOver;
     GameObject win, lose;
 
+    public GameObject floatingTextPrefab;
+
     private void Awake()
     {
         var obj = transform.Find("GoldIndicator");
@@ -53,11 +55,13 @@ public class UIManager : MonoBehaviour
     private void OnKillsUpdate(GameObject sender, object message)
     {
         killsIndicator.text = "Kills    " + ((int)message).ToString();
+        CreateFloatingText("+1 Kill", Color.magenta);
     }
 
     private void OnGoldUpdate(GameObject sender, object message)
     {
         goldIndicator.text = "Gold    " + ((int)message).ToString();
+        CreateFloatingText("+1 Gold", Color.yellow);
     }
 
     private void OnDestroy()
@@ -66,5 +70,19 @@ public class UIManager : MonoBehaviour
         EventObserver.Instance.AmmoUpdateEvent -= OnAmmoUpdate;
         EventObserver.Instance.KillsUpdateEvent -= OnKillsUpdate;
         EventObserver.Instance.PlayerDeadEvent -= OnPlayerDead;
+    }
+
+    private void CreateFloatingText(string text, Color color)
+    {
+        var obj = Instantiate(floatingTextPrefab, transform);
+        var ft = obj.GetComponent<Text>();
+        ft.text = text;
+        ft.color = color;
+    }
+
+    public void ShowWinScreen()
+    {
+        gameOver.SetActive(true);
+        win.SetActive(true);
     }
 }

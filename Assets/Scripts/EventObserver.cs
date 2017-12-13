@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ObservableEvents
 {
-    GoldUpdate, AmmoUpdate, KillsUpdate, PlayerDead
+    GoldUpdate, AmmoUpdate, KillsUpdate, PlayerDead, OrcDead
 }
 
 public class EventObserver

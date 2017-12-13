@@ -7,5 +7,6 @@ public class PlayerDeath : MonoBehaviour
     private void OnDeath()
     {
         EventObserver.Instance.Notify(ObservableEvents.PlayerDead, gameObject, null);
+        gameObject.SetActive(false);
     }
 }

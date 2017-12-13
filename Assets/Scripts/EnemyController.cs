@@ -168,6 +168,8 @@ public class EnemyController : MonoBehaviour
     public void SpawnProjectile()
     {
         daggerObject.SetActive(true);
+        int rnd = Random.Range(1, 4);
+        AudioManager.PlaySound("Zombie" + rnd, "Voice");
     }
 
     public void ThrowProjectile()

@@ -312,6 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e218575e1e51b46b3cd8ce421a5909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 1413718349010474, guid: a8046001308372e4889e5330f4be0ce4,
+    type: 2}
 --- !u!114 &114877444138844032
 MonoBehaviour:
   m_ObjectHideFlags: 1

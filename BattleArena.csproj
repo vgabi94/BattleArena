@@ -154,6 +154,7 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\BackgroundMusicSelector.cs" />
     <Compile Include="Assets\Scripts\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Assets\Scripts\UI\ButtonGameLoader.cs" />
     <Compile Include="Assets\Scripts\UI\CloseButton.cs" />
     <Compile Include="Assets\Scripts\UI\CloseByEsc.cs" />
+    <Compile Include="Assets\Scripts\UI\FloatingText.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBarController.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuBehavior.cs" />

@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerDeadEvent(GameObject sender, object message)
     {
+        AudioManager.PlaySound("YouLose", "Voice");
         StartCoroutine(GoToMenu(2f));
     }
 
@@ -312,6 +313,7 @@ public class GameManager : MonoBehaviour
 
     public static void LoadLevel(string name)
     {
+        Instance.PlayerKills = 0;
         Instance.StartCoroutine(Instance._LoadLevel(name));
     }
 

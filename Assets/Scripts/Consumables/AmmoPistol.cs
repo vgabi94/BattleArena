@@ -9,6 +9,7 @@ public class AmmoPistol : Consumable
 
     public override void Use(GameObject target)
     {
+        AudioManager.PlaySound("ReloadPickup", "SFX");
         WeaponController wc = target.GetComponent<WeaponController>();
         int packed = Pistol.PackAmmo(ammo, rounds);
         wc.UpdateAmmo(packed);
