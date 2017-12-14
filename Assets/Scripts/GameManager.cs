@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var item in gameObjects)
         {
-            Destroy(item);
+            DestroyImmediate(item);
         }
     }
 
@@ -370,6 +370,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         LoadRestOfTheGame(savedGamePath);
+        LevelManager.Instance.Reset();
         loadSavedGame = false;
         LoadingScreen.Hide();
     }
